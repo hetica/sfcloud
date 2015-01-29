@@ -35,6 +35,12 @@ class Article
      */
     private $contenu;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_creation", type="datetime")
+     */
+    private $datecreation;
 
     /**
      * Get id
@@ -90,5 +96,28 @@ class Article
     public function getContenu()
     {
         return $this->contenu;
+    }
+
+    /**
+     * Set datecreation
+     *
+     * @param \DateTime $datecreation
+     * @return Article
+     */
+    public function setDatecreation($datecreation)
+    {
+        $this->datecreation = $datecreation;
+
+        return $this;
+    }
+
+    /**
+     * Get datecreation
+     *
+     * @return \DateTime 
+     */
+    public function getDatecreation()
+    {
+        return $this->datecreation;
     }
 }
