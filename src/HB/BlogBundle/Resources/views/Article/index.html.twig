@@ -6,12 +6,18 @@
 
 <a href="{{ path('article_add') }}">Ajouter un article</a>
 
+
 {% for article in articles %}
+	<article>
 	<h2><a href="{{ path('article_read', {'id':article.id}) }}">
 	{{ article.titre }}</a></h2>
 	<p><i>Date de creation : {{ article.datecreation|date('d/m/Y') }}</i></p>
 	<p>{{ article.contenu[:150] | nl2br }} ... <i><a href="{{ path('article_read', {'id':article.id}) }}">Suite</a></i></p>
+	</article>
 {% else %}
 	<p>Pas d'articles trouvés</p>
-{% endfor %}	
+{% endfor %}
+
+
+
 {% endblock %}
