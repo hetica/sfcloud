@@ -5,12 +5,12 @@ namespace HB\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Article
+ * Utilisateur
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="HB\BlogBundle\Entity\ArticleRepository")
+ * @ORM\Entity(repositoryClass="HB\BlogBundle\Entity\UtilisateurRepository")
  */
-class Article
+class Utilisateur
 {
     /**
      * @var integer
@@ -24,39 +24,38 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="titre", type="string", length=255)
+     * @ORM\Column(name="login", type="string", length=255)
      */
-    private $titre;
+    private $login;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contenu", type="text")
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $contenu;
+    private $password;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_creation", type="datetime")
+     * @ORM\Column(name="datecreation", type="datetime")
      */
     private $datecreation;
 
     /**
-     * @var Utilisateur
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\Column(name="nom", type="string", length=255)
      */
-    private $auteur;
+    private $nom;
 
-    
     /**
      * Le constructeur va positionner la date du jour
      */
     public function __construct() {
     	$this->datecreation = new \DateTime();
     }
-    
+
     /**
      * Get id
      *
@@ -68,56 +67,56 @@ class Article
     }
 
     /**
-     * Set titre
+     * Set login
      *
-     * @param string $titre
-     * @return Article
+     * @param string $login
+     * @return Utilisateur
      */
-    public function setTitre($titre)
+    public function setLogin($login)
     {
-        $this->titre = $titre;
+        $this->login = $login;
 
         return $this;
     }
 
     /**
-     * Get titre
+     * Get login
      *
      * @return string 
      */
-    public function getTitre()
+    public function getLogin()
     {
-        return $this->titre;
+        return $this->login;
     }
 
     /**
-     * Set contenu
+     * Set password
      *
-     * @param string $contenu
-     * @return Article
+     * @param string $password
+     * @return Utilisateur
      */
-    public function setContenu($contenu)
+    public function setPassword($password)
     {
-        $this->contenu = $contenu;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get contenu
+     * Get password
      *
      * @return string 
      */
-    public function getContenu()
+    public function getPassword()
     {
-        return $this->contenu;
+        return $this->password;
     }
 
     /**
      * Set datecreation
      *
      * @param \DateTime $datecreation
-     * @return Article
+     * @return Utilisateur
      */
     public function setDatecreation($datecreation)
     {
@@ -137,25 +136,25 @@ class Article
     }
 
     /**
-     * Set auteur
+     * Set nom
      *
-     * @param \HB\BlogBundle\Entity\Utilisateur $auteur
-     * @return Article
+     * @param string $nom
+     * @return Utilisateur
      */
-    public function setAuteur(\HB\BlogBundle\Entity\Utilisateur $auteur = null)
+    public function setNom($nom)
     {
-        $this->auteur = $auteur;
+        $this->nom = $nom;
 
         return $this;
     }
 
     /**
-     * Get auteur
+     * Get nom
      *
-     * @return \HB\BlogBundle\Entity\Utilisateur 
+     * @return string 
      */
-    public function getAuteur()
+    public function getNom()
     {
-        return $this->auteur;
+        return $this->nom;
     }
 }

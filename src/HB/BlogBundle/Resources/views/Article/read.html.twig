@@ -1,11 +1,17 @@
 {%  extends "::base.html.twig"  %}
 
 {% block body %}
+<a href="{{ path('article_index') }}">Home</a>
 <h2>Affichage de l'article {{ article.id }}</h2>
 
 <h1>{{ article.titre }}</h1>
+<p><i>Date de creation : {{ article.datecreation|date('d/m/Y') }}</i></p>
+<p>{{ article.contenu|nl2br }}
 
-<p>{{ article.contenu }}
+<p>
+<a href="{{ path('article_edit', {'id':article.id}) }}">Modifier</a>
+<a href="{{ path('article_delete', {'id':article.id}) }}">Supprimer</a>
+</p>
 
 
 {% endblock %}

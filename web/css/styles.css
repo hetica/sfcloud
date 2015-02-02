@@ -1,0 +1,80 @@
+body {
+	background-color: #F0FFEB ;
+	width: 80% ;
+	margin: auto ;
+	min-width: 900px ;
+}
+
+header {
+	background: #E8E9EB ;
+	padding: 0 0 0 20px; 
+	margin-top: 12px;
+	height: 145px ;
+	border: solid 2px green;
+	border-radius: 0 0 0 40px ;
+}
+
+header a {
+	text-decoration: none ;
+}
+
+header h1 {
+	display: inline-block ;
+	text-align: justify ;
+	margin-left: 30px;
+	width: 220px ;
+}
+
+#logoeni {
+	float: left;
+	margin-top: 30px ;
+}
+
+#leschaises {
+	float: right ;
+
+}
+
+h1, h2, h3 {
+	text-decoration: none ;
+	color: #000080 ;
+}
+strong {
+	color: #800000 ;
+	font-weight: normal;
+}
+
+form {
+	width: 50% ;
+}
+
+fieldset {
+	border-radius: 15px ;
+	border: solid 1px green ;
+}
+
+legend {
+	font-size: 1.3em ;
+	color: #000080 ;
+}
+
+form ul {
+	list-style-type: none ;
+}
+
+pre {
+	font-size: 1.2em ;
+}
+
+#result_cisco {
+	background: #E8EBE8 ;
+	margin-top: 12px ;
+	margin-botom: 12px ;
+	padding: 0 10px ;
+	border: solid 2px green ;
+	border-radius: 10px ;
+}
+
+footer {
+	margin-top: 12px ;
+}

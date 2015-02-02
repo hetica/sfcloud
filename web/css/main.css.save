@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+h2 {
+	color: blue ;
+}
+
+body {
+	width: 85% ;
+	margin: auto ;
+}

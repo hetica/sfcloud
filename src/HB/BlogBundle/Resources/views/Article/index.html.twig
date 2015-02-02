@@ -1,9 +1,17 @@
 {%  extends "::base.html.twig"  %}
 
 {% block body %}
+ 
 <h2>Liste des articles</h2>
 
-<h1>{{ article.titre }}</h1>
+<a href="{{ path('article_add') }}">Ajouter un article</a>
 
-<p>{{ article.contenu }}</p>
+{% for article in articles %}
+	<h2><a href="{{ path('article_read', {'id':article.id}) }}">
+	{{ article.titre }}</a></h2>
+	<p><i>Date de creation : {{ article.datecreation|date('d/m/Y') }}</i></p>
+	<p>{{ article.contenu[:150] | nl2br }} ... <i><a href="{{ path('article_read', {'id':article.id}) }}">Suite</a></i></p>
+{% else %}
+	<p>Pas d'articles trouvés</p>
+{% endfor %}	
 {% endblock %}

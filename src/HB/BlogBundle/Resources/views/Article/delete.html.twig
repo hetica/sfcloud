@@ -1,0 +1,17 @@
+{%  extends "::base.html.twig"  %}
+
+{% block body %}
+<a href="{{ path('article_index') }}">Home</a>
+
+
+<h2>Supprimer l'article {{ article.id }}</h2>
+
+<h1>{{ article.titre }}</h1>
+<p>{{ article.contenu|nl2br }}
+
+
+<p>
+<a href="{{ path('article_delete', {'id':article.id} ) }}">Supprimer</a>
+</p>
+
+{% endblock %}
