@@ -1,0 +1,22 @@
+{%  extends "::base.html.twig"  %}
+
+{% block body %}
+<a href="{{ path('utilisateurs_index') }}">Home</a>
+<h2>Affichage de l'utilisateur {{ utilisateur.id }}</h2>
+<p><i>Date de création : {{ utilisateur.datecreation|date('d/m/Y') }}</i></p>
+
+<p><strong>Nom : {{ utilisateur.nom }}</strong></p>
+<p>Login : {{ utilisateur.login }}</p>
+<p>Mot de passe : {{ utilisateur.password }}
+<p>
+	Articles : 
+	{%  for article in utilisateur.articles %}
+	<br /> - {{ article.titre }}
+	{%  endfor %}
+<p>
+<a href="{{ path('utilisateur_edit', {'id':utilisateur.id}) }}">Modifier</a>
+<a href="{{ path('utilisateur_delete', {'id':utilisateur.id}) }}">Supprimer</a>
+</p>
+
+
+{% endblock %}

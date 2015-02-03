@@ -11,7 +11,13 @@
 	<article>
 	<h2><a href="{{ path('article_read', {'id':article.id}) }}">
 	{{ article.titre }}</a></h2>
-	<p><i>Date de creation : {{ article.datecreation|date('d/m/Y') }}</i></p>
+	<p>
+	<i>Date de creation : {{ article.datecreation|date('d/m/Y') }}</i><br />
+	<i>Auteur : 
+		{% if article.auteur %}
+	 	{{ article.auteur.nom }}
+	 	{% endif %}</i></p>
+	</p>
 	<p>{{ article.contenu[:150] | nl2br }} ... <i><a href="{{ path('article_read', {'id':article.id}) }}">Suite</a></i></p>
 	</article>
 {% else %}

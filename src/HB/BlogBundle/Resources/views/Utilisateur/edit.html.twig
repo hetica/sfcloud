@@ -1,0 +1,10 @@
+{%  extends "::base.html.twig"  %}
+
+{% block body %}
+<h2>{%  if edition %}Édition{% else %}Création{% endif %} d'un utilisateur</h2>
+
+{{ form(formulaire) }}
+
+<p><a href="{{ path('utilisateurs_index') }}">Annuler</a></p>
+
+{% endblock %}

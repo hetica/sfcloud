@@ -1,0 +1,18 @@
+{%  extends "::base.html.twig"  %}
+
+{% block body %}
+<a href="{{ path('utilisateurs_index') }}">Home</a>
+
+
+<h2>Supprimer l'utilisateur {{ utilisateur.id }}</h2>
+
+<h1>{{ utilisateur.nom }}</h1>
+<p>{{ utilisateur.login }}
+
+
+
+<p>
+<a href="{{ path('utilisateurs_index', {'id':utilisateur.id} ) }}">Supprimer</a>
+</p>
+
+{% endblock %}

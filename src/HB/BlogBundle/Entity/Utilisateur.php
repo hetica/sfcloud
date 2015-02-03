@@ -53,7 +53,8 @@ class Utilisateur
     /**
      * @var Collection
      * 
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="auteur")
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="auteur" )
+     * 
      */
 	private $articles;
     

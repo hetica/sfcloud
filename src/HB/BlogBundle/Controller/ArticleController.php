@@ -117,18 +117,20 @@ class ArticleController extends Controller {
 		// on a récupéré l'article grace à un ParamConverter magique
 
 		// On récupère la requête
-		$request = $this->get ( 'request' );
+		// $request = $this->get ( 'request' );
 		// Si la méthode est POST, on supprime l'article
-		if ($request->getMethod () == 'POST') {
-			$em = $this->getDoctrine()->getEntityManager();
-			$em->remove($article);
-			$em->flush();
+		// if ($request->getMethod () == 'POST') {
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$em->remove($article);
+		$em->flush();
 		
 		// on redirige vers la liste des articles
 		return $this->redirect($this->generateUrl('article_index'));
-		}
+		
+		//}
 		
 		// sinon, on affiche la page de suppression
-		return array( 'article' => $article );
+		// return array( 'article' => $article );
 	}
 }

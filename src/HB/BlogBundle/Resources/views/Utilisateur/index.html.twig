@@ -1,0 +1,30 @@
+{%  extends "::base.html.twig"  %}
+
+{% block body %}
+ 
+<h2>Liste des utilisateurs</h2>
+
+<a href="{{ path('utilisateur_add') }}">Ajouter un utilisateur</a>
+
+
+{% for utilisateur in utilisateurs %}
+	<article>
+	<h3><a href="{{ path('utilisateur_read', {'id':utilisateur.id}) }}">
+	{{ utilisateur.nom }}</a></h3>
+	<p><i>Date de creation : {{ utilisateur.datecreation|date('d/m/Y') }}</i></p>
+	<p>login : {{ utilisateur.login }}</p>
+	<p>
+		articles : 
+		{% for article in utilisateur.articles %}
+		<br /> - {{ article.titre }}
+		{%  endfor %}
+	</p>
+	
+	</article>
+{% else %}
+	<p>Pas d'utilisateurs trouvés</p>
+{% endfor %}
+
+
+
+{% endblock %}
