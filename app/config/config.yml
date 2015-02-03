@@ -70,3 +70,21 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# be_simple_soap:
+be_simple_soap:
+    cache:
+        type:     disk
+        lifetime: 86400
+        limit:    5
+    services:
+        BlogApi:
+            namespace:     http://sfcloud.local/ws/BlogApi/1.0/
+            binding:       rpc-literal
+            resource:      "@HBBlogBundle/Controller/ArticleController.php"
+            resource_type: annotation
+        DemoApi:
+            namespace:     http://sfcloud.local/ws/BlogApi/1.0/
+            binding:       rpc-literal
+            resource:      "@HBBlogBundle/Controller/DemoController.php"
+            resource_type: annotation
