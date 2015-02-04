@@ -20,7 +20,7 @@ class ArticleController extends Controller {
 	/**
 	 * Liste tous les articles
 	 *
-	 * @Route("/", name="article_index")
+	 * @Route("/", name="article_index") 
 	 * @Template()
 	 */
 	public function indexAction() {
