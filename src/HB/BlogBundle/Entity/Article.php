@@ -3,12 +3,14 @@
 namespace HB\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use BeSimple\SoapBundle\ServiceDefinition\Annotation as Soap;
 
 /**
  * Article
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="HB\BlogBundle\Entity\ArticleRepository")
+ * @Soap\Alias("Article")
  */
 class Article
 {
@@ -18,6 +20,7 @@ class Article
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Soap\ComplexType("int", nillable=true)
      */
     private $id;
 
@@ -25,6 +28,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
+     * @Soap\ComplexType("string")
      */
     private $titre;
 
@@ -32,6 +36,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="contenu", type="text")
+     * @Soap\ComplexType("string")
      */
     private $contenu;
 
@@ -39,6 +44,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="date_creation", type="datetime")
+     * @Soap\ComplexType("date")
      */
     private $datecreation;
 
