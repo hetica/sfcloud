@@ -9,6 +9,7 @@ use HB\BlogBundle\Form\ArticleType;
 use BeSimple\SoapBundle\ServiceDefinition\Annotation as Soap;
 
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
+
 /**
  *
  * @author ben
@@ -29,8 +30,11 @@ class WsArticleController extends Controller {
 		// On demande au repository tous les articles
 		$articles = $repository->findAll ();
 		
+		if ($articles == null) {
+			throw new \SoapFault("Receiver", "No article found");
+		}
+		
 		// On transmet nos articles à la vue
-		//return array ('articles' => $articles);
 		return $articles;
 	}
 
@@ -41,82 +45,77 @@ class WsArticleController extends Controller {
 	 * @Soap\Param("id", phpType = "int")
 	 * @Soap\Result(phpType = "HB\BlogBundle\Entity\Article")
 	 */
-	public function getArticleAction(Article $article) {
-		// on a récupéré l'article grace à un ParamConverter magique
+	public function getArticleAction($id) {
+		// on récupére l'article 
+		$repo = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		$article = $repo->find($id);
 		// On transmet l'article
+		if ($article == null) {
+			throw new \SoapFault("Sender", "No article found");
+		}
 		return $article;
 	}
 
 	/**
-	 * Ajoute un article
+	 * Crée ou modifie un article
 	 *
+	 * @Soap\Method("editArticle")
+	 * @Soap\Param("article", phpType = "HB\BlogBundle\Entity\Article")
+	 * @Soap\Result(phpType = "boolean")
 	 */
-	public function addAction() {
-		$article = new Article;
-		return $this->editAction($article);
-	}
-	
-	/**
-	 * Affiche un formulaire d'édition sur un id
-	 *
-	 */
-	public function editAction(Article $article) {
+	public function editArticleAction(Article $article) {
 		// on a récupéré l'article grace à un ParamConverter magique
-		// on créé un objet formulaire en lui précisant quel Type utiliser
-		$form = $this->createForm ( new ArticleType (), $article );
-		// On récupère la requête
-		$request = $this->get ( 'request' );
-		// On vérifie qu'elle est de type POST pour voir si un formulaire a été soumis
-		if ($request->getMethod () == 'POST') {
-			// On fait le lien Requête <-> Formulaire
-			// À partir de maintenant, la variable $article contient les valeurs entrées dans
-			// le formulaire par le visiteur
-			$form->bind ( $request );
-			// On vérifie que les valeurs entrées sont correctes
-			// (Nous verrons la validation des objets en détail dans le prochain chapitre)
-			if ($form->isValid ()) {
-				// On l'enregistre notre objet $article dans la base de données
-				$em = $this->getDoctrine ()->getManager ();
-				$em->persist ( $article );
-				$em->flush ();
-				// On redirige vers la page de visualisation de l'article nouvellement créé
-				return $this->redirect ( $this->generateUrl ( 'article_read', array (
-						'id' => $article->getId () 
-				) ) );
+		
+		if ($article == null) {
+			throw new \SoapFault("Sender", "Invalid data");
+		}
+		
+		// On regarde si on a un article existant (add/edit)
+		$em = $this->getDoctrine()->getManager();
+		
+		//Problème de persistance automatique, utilisation de merge...
+		if ($article->getId()>0) {
+			$oldArticle = $em->find("HBBlogBundle:Article", $article->getId());
+			$article->setDatecreation($oldArticle->getDatecreation());
+		} else {
+			if ($article->getDatecreation()==null) {
+				$article->setDatecreation(new \DateTime());
 			}
 		}
 		
-		if ($article->getId() > 0)
-			$edition = true;
-		else
-			$edition = false;
+		// On utilise merge et non persist car l'objet Article ne vient pas de 
+		// l'entitymanager mais est instancié à partir de SoapBundle
+		$em->merge($article);
+		$em->flush();
 		
-		// passe la vue de formulaire à la vue
-		return array ('formulaire' => $form->createView (), 'edition' => $edition);
+		// On renvoie le résultat, plus de test à faire (normalement)
+		return true ;
+		//return $this->getIndexArticlesAction();
 	}
 	
 	/**
 	 * Supprime un article sur un id
 	 *
+	 * @Soap\Method("deleteArticle")
+	 * @Soap\Param("id", phpType = "int")
+	 * @Soap\Result(phpType = "HB\BlogBundle\Entity\Article[]")
 	 */
-	public function deleteAction(Article $article) {
-		// on a récupéré l'article grace à un ParamConverter magique
-
-		// On récupère la requête
-		// $request = $this->get ( 'request' );
-		// Si la méthode est POST, on supprime l'article
-		// if ($request->getMethod () == 'POST') {
-
+	public function deleteArticleAction($id) {
+		
+		// on récupére l'article
+		$repo = $this->getDoctrine()->getRepository("HBBlogBundle:Article");
+		$article = $repo->find($id);
+		
+		if ($article == null) {
+			throw new \SoapFault("Sender", "Invalid data");
+		}
+		
 		$em = $this->getDoctrine()->getEntityManager();
 		$em->remove($article);
 		$em->flush();
 		
+		
 		// on redirige vers la liste des articles
-		return $this->redirect($this->generateUrl('article_index'));
-		
-		//}
-		
-		// sinon, on affiche la page de suppression
-		// return array( 'article' => $article );
+		return $this->getIndexArticlesAction();		
 	}
 }

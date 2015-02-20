@@ -44,7 +44,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="date_creation", type="datetime")
-     * @Soap\ComplexType("date")
+     * @Soap\ComplexType("dateTime", nillable=true)
      */
     private $datecreation;
 
